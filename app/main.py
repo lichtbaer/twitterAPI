@@ -47,7 +47,7 @@ def fetchfriends(user):
     return friendlist
 
 
-@app.get("/user/{user_name}/friends")
+@app.get("/api/v1/user/{user_name}/friends")
 def get_friends(user_name: str):
     try:
         user = api.get_user(user_name)
@@ -57,7 +57,7 @@ def get_friends(user_name: str):
 
 
 
-@app.get("/user/{user_name}")
+@app.get("/api/v1/user/{user_name}")
 def get_user(user_name: str):
     try:
         user = api.get_user(user_name)
@@ -67,12 +67,12 @@ def get_user(user_name: str):
 
 
 
-@app.get("/tweets/{user_id}")
+@app.get("/api/v1/tweets/{user_id}")
 def get_tweets(user_id: int, count: Optional[int] = 100):
     return fetchtweets(user_id=user_id, count=count)
 
 
-@app.get("/tweets/{user_id}/{count}")
+@app.get("/api/v1/tweets/{user_id}/{count}")
 def get_tweets(user_id: int, count: Optional[int] = 100):
     return fetchtweets(user_id=user_id, count=count)
 
