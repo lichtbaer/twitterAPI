@@ -6,6 +6,8 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime
 
+from docs import tags_metadata
+
 load_dotenv()
 
 import tweepy
@@ -22,7 +24,10 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 
-app = FastAPI()
+app = FastAPI(title="Twitter API",
+                description="Eine sehr einfache Twitter API.",
+                version="0.2.0",
+                openapi_tags=tags_metadata)
 
 
 def twtime(tweet):
@@ -47,7 +52,7 @@ def fetchfriends(user):
     return friendlist
 
 
-@app.get("/api/v1/user/{user_name}/friends")
+@app.get("/api/v1/user/{user_name}/friends", tags=["users"])
 def get_friends(user_name: str):
     try:
         user = api.get_user(user_name)
@@ -57,7 +62,7 @@ def get_friends(user_name: str):
 
 
 
-@app.get("/api/v1/user/{user_name}")
+@app.get("/api/v1/user/{user_name}", tags=["users"])
 def get_user(user_name: str):
     try:
         user = api.get_user(user_name)
@@ -67,12 +72,12 @@ def get_user(user_name: str):
 
 
 
-@app.get("/api/v1/tweets/{user_id}")
+@app.get("/api/v1/tweets/{user_id}", tags=["tweets"])
 def get_tweets(user_id: int, count: Optional[int] = 100):
     return fetchtweets(user_id=user_id, count=count)
 
 
-@app.get("/api/v1/tweets/{user_id}/{count}")
+@app.get("/api/v1/tweets/{user_id}/{count}", tags=["tweets"])
 def get_tweets(user_id: int, count: Optional[int] = 100):
     return fetchtweets(user_id=user_id, count=count)
 
