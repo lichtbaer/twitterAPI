@@ -6,7 +6,8 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime
 
-from docs import tags_metadata
+from .lib import tags_metadata
+
 
 load_dotenv()
 
